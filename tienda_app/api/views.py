@@ -6,7 +6,8 @@ from tienda_app.infra.factories import PaymentFactory
 from tienda_app.services import CompraService
 
 from .serializers import OrdenInputSerializer
-
+from tienda_app.models import Libro
+from .serializers import LibroSerializer
 
 class CompraAPIView(APIView):
     """
@@ -45,3 +46,13 @@ class CompraAPIView(APIView):
             return Response({'error': str(e)}, status=status.HTTP_409_CONFLICT)
         except Exception:
             return Response({'error': 'Error interno'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ProductosAPIView(APIView):
+    """
+    GET /api/v1/productos/
+    Prueba de coexistencia: Django v1 sigue vivo.
+    """
+    def get(self, request):
+        libros = Libro.objects.all()
+        serializer = LibroSerializer(libros, many=True)
+        return Response(serializer.data)
