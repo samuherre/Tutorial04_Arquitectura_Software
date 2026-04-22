@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=secret_password
 
   web:
-    image: tutorial04-web
+    image: tutorial05-web
     command: gunicorn Tienda.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
